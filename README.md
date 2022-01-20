@@ -1,73 +1,68 @@
-## Eleventy Plugin Template
+# eleventy-plugin-unfurl
 
-> A starter environment for creating plugins for Eleventy (11ty).
+[![npm](https://img.shields.io/npm/v/eleventy-plugin-unfurl)](https://www.npmjs.com/package/eleventy-plugin-unfurl)
 
-Fork this repo, or select "Use this template" to get started.
+Turn URLs into rich cards. Show a preview image, page title, description and other meta information all inside a neatly presented card. **Collaborative effort between [Sara Soueidan](https://www.sarasoueidan.com) and myself**.
 
-### Using this template
+[See the live demo](https://eleventy-plugin-unfurl.netlify.app) and the [demo directory in the repo](https://github.com/daviddarnes/eleventy-plugin-unfurl/tree/main/demo) to see it all in action.
 
-This template is setup to run a single page 11ty site for testing your plugin functionality. The build files are excluded from the final plugin package via `.npmignore`.
+- [Installation](#installation)
+- [Options](#options)
+- [Development](#development)
 
-Your plugin functionality should live in/be exported from `.eleventy.js`. You will find a sample of creating a filter plugin in this template, including setting up a default config and merging user options.
+## Installation
 
-**Be sure to update the `package.json` with your own details!**
+1. Install plugin using npm:
 
-### Testing your plugin
+   ```
+   npm install eleventy-plugin-unfurl
+   ```
 
-You can test your functionality within this project's local 11ty build by running `npm start`, but you'll also want to test it _as a plugin_.
+2. Add plugin to your `.eleventy.js` config:
 
-From another local 11ty project, you can set the `require()` path relatively to your plugin's project directory, and then use it just as you would for a plugin coming from a package.
+   ```js
+   const pluginUnfurl = require("eleventy-plugin-unfurl");
 
-Example, assuming you place all your repositories within the same parent directory:
+   module.exports = (eleventyConfig) => {
+     eleventyConfig.addPlugin(pluginUnfurl);
+   };
+   ```
 
-```js
-const pluginName = require("../plugin-directory");
+3. Use the shortcode in your templates (`.md`, `.njk`, `.liquid` or `.js`) like so:
 
-module.exports = (eleventyConfig) => {
-  eleventyConfig.addPlugin(pluginName, { optionName: 'if needed' );
-};
-```
+   ```njk
+   {% unfurl "https://www.sarasoueidan.com/blog/prefers-color-scheme-browser-vs-os/" %}
+   ```
 
-Then, run the project to test the plugin's functionality.
+## Options
 
-Note that making changes in the plugin source will likely require restarting the test project.
-
-### Resources for creating an 11ty plugin
-
-- Bryan Robinson's ["Create a Plugin with 11ty"](https://www.youtube.com/watch?v=aO-NFFKjnnE) demonstration on "Learn With Jason"
-
----
-
-**The following is a boilerplate for your final plugin README**.
-
-## Usage
-
-Describe how to install your plugin, such as:
-
-```bash
-npm install @scope/plugin-name
-```
-
-Then, include it in your `.eleventy.js` config file:
+The HTML of the unfurled links can be amended using the `template` option like so:
 
 ```js
-const pluginName = require("@scope/plugin-name");
-
-module.exports = (eleventyConfig) => {
-  eleventyConfig.addPlugin(pluginName);
-};
+eleventyConfig.addPlugin(pluginUnfurl, {
+  template: ({ title, url }) => `<a href="${url}">${title}</a>`,
+});
 ```
 
-## Config Options
+The following values are available: `url`, `title`, `description`, `author`, `publisher`, `image` and `logo`.
 
-| Option      | Type | Default       |
-| ----------- | ---- | ------------- |
-| option name | type | default value |
+## Development
 
-## Config Examples
+1. Amend the `.eleventy.js` file within `demo` so it points to the source code in the parent directory:
 
-Show examples of likely configurations.
+   ```js
+   // const pluginGhost = require("../");
+   const pluginUnfurl = require("eleventy-plugin-unfurl");
+   ```
 
-## Credits
+2. Install the demo dependencies:
 
-Add credits if needed.
+   ```text
+   cd demo
+   npm install
+   ```
+
+3. Run the demo locally:
+   ```text
+   npm run dev
+   ```

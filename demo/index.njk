@@ -1,0 +1,50 @@
+---
+title: Example unfurl links
+---
+
+<style>
+img {
+  max-width: 100%;
+  height: auto;
+}
+.unfurl {
+  display: grid;
+  grid-template-columns: max-content 1fr 200px;
+  grid-gap: 1rem;
+  align-items: center;
+  background: #f3f3f3;
+  border: 1px solid #ddd;
+}
+.unfurl > * {
+  grid-column: 1 / 3;
+}
+.unfurl__heading {
+  margin: 1rem;
+  font-size: 1.2rem;
+}
+.unfurl__image {
+  grid-column: 3 / 4;
+  grid-row: span 4;
+  align-self: stretch;
+  object-fit: cover;
+}
+.unfurl__logo {
+  grid-column: 1 / 2;
+  width: 1.4rem;
+  height: 1.4rem;
+  object-fit: cover;
+  border-radius: 100%;
+  margin-inline-start: 1rem;
+}
+.unfurl__meta {
+  grid-column: 2 / 3;
+}
+
+.unfurl + .unfurl {
+  margin-block-start: 1rem;
+}
+</style>
+
+{% unfurl "https://www.sarasoueidan.com/blog/prefers-color-scheme-browser-vs-os/" %}
+
+{% unfurl "https://darn.es" %}

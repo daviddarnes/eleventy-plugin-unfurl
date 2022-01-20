@@ -1,33 +1,44 @@
 {
-  "name": "@scope/plugin-name",
-  "version": "1.0.0",
-  "description": "Description of plugin",
-  "homepage": "",
+  "name": "eleventy-plugin-unfurl",
+  "version": "0.0.1",
+  "description": "Unfurl links into preview cards in Eleventy",
+  "homepage": "https://github.com/daviddarnes/eleventy-plugin-unfurl",
   "main": ".eleventy.js",
   "scripts": {
-    "start": "eleventy --serve",
     "build": "eleventy",
     "bump": "npm --no-git-tag-version version"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/username/repo-name.git"
+    "url": "git+https://github.com/daviddarnes/eleventy-plugin-unfurl.git"
   },
   "keywords": [
     "11ty",
     "11ty-plugin",
     "eleventy",
-    "eleventy-plugin"
+    "eleventy-plugin",
+    "unfurl",
+    "bookmarks",
+    "cards"
   ],
   "author": {
-    "name": "username",
-    "url": "https://website.com"
+    "name": "daviddarnes",
+    "url": "https://darn.es"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/username/repo-name/issues"
+    "url": "https://github.com/daviddarnes/eleventy-plugin-unfurl/issues"
   },
-  "devDependencies": {
-    "@11ty/eleventy": "^0.11.1"
+  "dependencies": {
+    "@11ty/eleventy": "^1.0.0",
+    "metascraper": "^5.25.7",
+    "metascraper-author": "^5.25.7",
+    "metascraper-description": "^5.25.7",
+    "metascraper-image": "^5.25.7",
+    "metascraper-logo": "^5.25.7",
+    "metascraper-logo-favicon": "^5.25.7",
+    "metascraper-publisher": "^5.25.7",
+    "metascraper-title": "^5.25.7",
+    "metascraper-url": "^5.25.7"
   }
 }
