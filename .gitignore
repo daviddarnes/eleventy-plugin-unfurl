@@ -1,2 +1,10 @@
 node_modules
-_site
+package-lock.json
+
+demo/.env
+demo/node_modules
+demo/_site
+demo/package-lock.json
+demo/.cache
+
+.DS_Store

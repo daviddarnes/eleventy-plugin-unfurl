@@ -1,6 +1,6 @@
 {
   "name": "eleventy-plugin-unfurl",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Unfurl links into preview cards in Eleventy",
   "homepage": "https://github.com/daviddarnes/eleventy-plugin-unfurl",
   "main": ".eleventy.js",
@@ -31,14 +31,6 @@
   },
   "dependencies": {
     "@11ty/eleventy": "^1.0.0",
-    "metascraper": "^5.25.7",
-    "metascraper-author": "^5.25.7",
-    "metascraper-description": "^5.25.7",
-    "metascraper-image": "^5.25.7",
-    "metascraper-logo": "^5.25.7",
-    "metascraper-logo-favicon": "^5.25.7",
-    "metascraper-publisher": "^5.25.7",
-    "metascraper-title": "^5.25.7",
-    "metascraper-url": "^5.25.7"
+    "@11ty/eleventy-cache-assets": "^2.3.0"
   }
 }

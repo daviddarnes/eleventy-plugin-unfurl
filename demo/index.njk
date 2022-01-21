@@ -3,14 +3,18 @@ title: Example unfurl links
 ---
 
 <style>
+.unfurl {
+  font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,Ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+}
+
 img {
   max-width: 100%;
   height: auto;
 }
 .unfurl {
   display: grid;
-  grid-template-columns: max-content 1fr 200px;
-  grid-gap: 1rem;
+  grid-template-columns: max-content 1fr .4fr;
+  grid-column-gap: .6rem;
   align-items: center;
   background: #f3f3f3;
   border: 1px solid #ddd;
@@ -19,8 +23,11 @@ img {
   grid-column: 1 / 3;
 }
 .unfurl__heading {
-  margin: 1rem;
+  margin: 1rem 1rem 0;
   font-size: 1.2rem;
+}
+.unfurl__description {
+  margin-inline-start: 1rem;
 }
 .unfurl__image {
   grid-column: 3 / 4;
@@ -48,3 +55,5 @@ img {
 {% unfurl "https://www.sarasoueidan.com/blog/prefers-color-scheme-browser-vs-os/" %}
 
 {% unfurl "https://darn.es" %}
+
+{% unfurl "https://darn.es/github-directory-as-npm-package/" %}

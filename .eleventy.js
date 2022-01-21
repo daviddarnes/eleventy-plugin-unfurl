@@ -1,58 +1,97 @@
-const metascraper = require("metascraper")([
-  require("metascraper-url")(),
-  require("metascraper-title")(),
-  require("metascraper-description")(),
-  require("metascraper-author")(),
-  require("metascraper-publisher")(),
-  require("metascraper-image")(),
-  require("metascraper-logo-favicon")(),
-  require("metascraper-logo")(),
-]);
-const got = require("got");
+const Cache = require("@11ty/eleventy-cache-assets");
 
-module.exports = (eleventyConfig, options = {}) => {
-  let template = ({
-    image,
-    title,
-    url,
-    publisher,
-    desciption,
-    logo,
-    author,
-    date,
-  }) => {
-    let imageEl = `<img class="unfurl__image" src="${image}" alt="" />`;
-    let titleEl = `
+const formatDate = (date) => {
+  const dateObject = new Date(date);
+
+  const nth = (date) => {
+    if (date > 3 && date < 21) return "th";
+    switch (date % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  };
+
+  const locale = (date, options) => date.toLocaleDateString("en-GB", options);
+
+  return `${locale(dateObject, { weekday: "long" })}, ${locale(dateObject, {
+    day: "numeric",
+  })}<sup>${nth(dateObject)}</sup> ${locale(dateObject, {
+    month: "long",
+  })}, ${locale(dateObject, {
+    year: "numeric",
+  })}`;
+};
+
+const template = ({
+  image,
+  title,
+  url,
+  publisher,
+  description,
+  logo,
+  author,
+  date,
+}) => {
+  const imageEl = `
+      <img
+        class="unfurl__image"
+        src="${image.url}"
+        width="${image.width}"
+        height="${image.height}"
+        alt=""
+      />
+    `;
+  const titleEl = `
       <h4 class="unfurl__heading">
         <a class="unfurl__link" href="${url}">${title}</a>
       </h4>
     `;
-    let desciptionEl = `<p class="unfurl__description">${desciption}</p>`;
-    let logoEl = `<img class="unfurl__logo" src="${logo}" alt="" />`;
-    let dateEl = `<time class="unfurl__date" datetime="${date}">${date}</time>`;
-    let metaEl = `
-      <span class="unfurl__meta">
-        ${publisher}${author ? ` &bull; ${author}` : ""}
-      </span>
+  const descriptionEl = `<p class="unfurl__description">${description}</p>`;
+  const logoEl = `
+      <img
+        class="unfurl__logo"
+        src="${logo.url}"
+        width="${logo.width}"
+        height="${logo.height}"
+        alt=""
+      />
     `;
-    return `
-      <article class="unfurl">
-        ${titleEl}
-        ${image ? imageEl : ""}
-        ${desciption ? desciptionEl : ""}
-        ${logo ? logoEl : ""}
-        ${publisher ? metaEl : ""}
-        ${date ? dateEl : ""}
-      </article>`;
-  };
+  const dateEl = `
+      <time class="unfurl__date" datetime="${date}">
+        Posted ${formatDate(date)}
+      </time>
+    `;
+  const publisherEl = `<span class="unfurl__publisher">Published on ${publisher}</span>`;
 
+  return `
+    <article class="unfurl">
+      ${titleEl}
+      ${image ? imageEl : ""}
+      ${description ? descriptionEl : ""}
+      ${logo ? logoEl : ""}
+      <small class="unfurl__meta">
+        ${publisher ? publisherEl : ""}
+        ${date ? " | " + dateEl : ""}
+      </small>
+    </article>`;
+};
+
+module.exports = (eleventyConfig, options = {}) => {
   eleventyConfig.addAsyncShortcode("unfurl", async (link) => {
-    const { body: html, url } = await got(link);
-    const metadata = await metascraper({ html, url });
+    const metadata = await Cache(`https://api.microlink.io/?url=${link}`, {
+      duration: "1m",
+      type: "json",
+    });
 
     if (options.template) {
-      return options.template(metadata);
+      return options.template(metadata.data);
     }
-    return template(metadata);
+    return template(metadata.data);
   });
 };
