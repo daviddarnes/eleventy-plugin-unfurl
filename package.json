@@ -1,6 +1,6 @@
 {
   "name": "eleventy-plugin-unfurl",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Unfurl links into preview cards in Eleventy",
   "homepage": "https://github.com/daviddarnes/eleventy-plugin-unfurl",
   "main": ".eleventy.js",

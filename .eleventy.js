@@ -77,7 +77,7 @@ const template = ({
       ${logo ? logoEl : ""}
       <small class="unfurl__meta">
         ${publisher ? publisherEl : ""}
-        ${date ? " | " + dateEl : ""}
+        ${date ? dateEl : ""}
       </small>
     </article>`;
 };
