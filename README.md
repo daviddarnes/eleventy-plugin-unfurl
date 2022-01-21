@@ -9,6 +9,7 @@ Turn URLs into rich cards. Show a preview image, page title, description and oth
 - [Installation](#installation)
 - [Options](#options)
 - [Development](#development)
+- [Credits](#credits)
 
 ## Installation
 
@@ -88,3 +89,9 @@ The following data points are available:
    ```text
    npm run dev
    ```
+
+## Credits
+
+- [Microlink](https://microlink.io) for the underlying API
+- [Sara Soueidan](https://www.sarasoueidan.com) for the idea and initial execution
+- [Kiko Beats](https://kikobeats.com) for help with using Microlink
