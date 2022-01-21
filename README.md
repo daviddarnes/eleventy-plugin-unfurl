@@ -44,14 +44,36 @@ eleventyConfig.addPlugin(pluginUnfurl, {
 });
 ```
 
-The following values are available: `url`, `title`, `description`, `author`, `publisher`, `image` and `logo`.
+The following data points are available:
+
+- `title`
+- `description`
+- `lang`
+- `author`
+- `publisher`
+- `image`
+  - `url`
+  - `type`
+  - `size`
+  - `height`
+  - `width`
+  - `size_pretty`
+- `date`
+- `url`
+- `logo`
+  - `url`
+  - `type`
+  - `size`
+  - `height`
+  - `width`
+  - `size_pretty`
 
 ## Development
 
 1. Amend the `.eleventy.js` file within `demo` so it points to the source code in the parent directory:
 
    ```js
-   // const pluginGhost = require("../");
+   // const pluginUnfurl = require("../");
    const pluginUnfurl = require("eleventy-plugin-unfurl");
    ```
 
