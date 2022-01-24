@@ -59,7 +59,7 @@ The following data points are available:
   - `height`
   - `width`
   - `size_pretty`
-- `date`
+- `date` (Note: Currently not returning the published date, removed from plugin HTML template)
 - `url`
 - `logo`
   - `url`
@@ -68,6 +68,8 @@ The following data points are available:
   - `height`
   - `width`
   - `size_pretty`
+
+> 🎨 Looking for some CSS like in [the demo](https://eleventy-plugin-unfurl.netlify.app)? Check out the [demo file in the repo](https://github.com/daviddarnes/eleventy-plugin-unfurl/blob/main/demo/index.njk).
 
 ## Development
 

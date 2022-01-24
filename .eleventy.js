@@ -1,32 +1,32 @@
 const Cache = require("@11ty/eleventy-cache-assets");
 
-const formatDate = (date) => {
-  const dateObject = new Date(date);
-
-  const nth = (date) => {
-    if (date > 3 && date < 21) return "th";
-    switch (date % 10) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  };
-
-  const locale = (date, options) => date.toLocaleDateString("en-GB", options);
-
-  return `${locale(dateObject, { weekday: "long" })}, ${locale(dateObject, {
-    day: "numeric",
-  })}<sup>${nth(dateObject)}</sup> ${locale(dateObject, {
-    month: "long",
-  })}, ${locale(dateObject, {
-    year: "numeric",
-  })}`;
-};
+// const formatDate = (date) => {
+//   const dateObject = new Date(date);
+//
+//   const nth = (date) => {
+//     if (date > 3 && date < 21) return "th";
+//     switch (date % 10) {
+//       case 1:
+//         return "st";
+//       case 2:
+//         return "nd";
+//       case 3:
+//         return "rd";
+//       default:
+//         return "th";
+//     }
+//   };
+//
+//   const locale = (date, options) => date.toLocaleDateString("en-GB", options);
+//
+//   return `${locale(dateObject, { weekday: "long" })}, ${locale(dateObject, {
+//     day: "numeric",
+//   })}<sup>${nth(dateObject)}</sup> ${locale(dateObject, {
+//     month: "long",
+//   })}, ${locale(dateObject, {
+//     year: "numeric",
+//   })}`;
+// };
 
 const template = ({
   image,
@@ -62,22 +62,21 @@ const template = ({
         alt=""
       />
     `;
-  const dateEl = `
-      <time class="unfurl__date" datetime="${date}">
-        Posted ${formatDate(date)}
-      </time>
-    `;
-  const publisherEl = `<span class="unfurl__publisher">Published on ${publisher}</span>`;
+  // const dateEl = `
+  //     <time class="unfurl__date" datetime="${date}">
+  //       Posted ${formatDate(date)}
+  //     </time>
+  //   `;
+  const publisherEl = `<span class="unfurl__publisher">${publisher}</span>`;
 
   return `
     <article class="unfurl">
       ${titleEl}
       ${image ? imageEl : ""}
       ${description ? descriptionEl : ""}
-      ${logo ? logoEl : ""}
       <small class="unfurl__meta">
+        ${logo ? logoEl : ""}
         ${publisher ? publisherEl : ""}
-        ${date ? dateEl : ""}
       </small>
     </article>`;
 };
