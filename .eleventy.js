@@ -24,7 +24,7 @@ const titleTemplate = ({ url, title }) => `
   </h4>
 `;
 
-const descriptionTemplate = ({ description }) => `
+const descriptionTemplate = (description) => `
   <p class="unfurl__description">${description}</p>
 `;
 
@@ -38,7 +38,7 @@ const logoTemplate = ({ url, width, height }) => `
   />
 `;
 
-const publisherTemplate = ({ publisher }) => `
+const publisherTemplate = (publisher) => `
   <span class="unfurl__publisher">${publisher}</span>
 `;
 
