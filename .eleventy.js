@@ -1,96 +1,77 @@
-const Cache = require("@11ty/eleventy-cache-assets");
+const EleventyFetch = require("@11ty/eleventy-fetch");
 
-// const formatDate = (date) => {
-//   const dateObject = new Date(date);
-//
-//   const nth = (date) => {
-//     if (date > 3 && date < 21) return "th";
-//     switch (date % 10) {
-//       case 1:
-//         return "st";
-//       case 2:
-//         return "nd";
-//       case 3:
-//         return "rd";
-//       default:
-//         return "th";
-//     }
-//   };
-//
-//   const locale = (date, options) => date.toLocaleDateString("en-GB", options);
-//
-//   return `${locale(dateObject, { weekday: "long" })}, ${locale(dateObject, {
-//     day: "numeric",
-//   })}<sup>${nth(dateObject)}</sup> ${locale(dateObject, {
-//     month: "long",
-//   })}, ${locale(dateObject, {
-//     year: "numeric",
-//   })}`;
-// };
-
-const template = ({
-  image,
-  title,
-  url,
-  publisher,
-  description,
-  logo,
-  author,
-  date,
-}) => {
-  const imageEl = `
-      <img
-        class="unfurl__image"
-        src="${image.url}"
-        width="${image.width}"
-        height="${image.height}"
-        alt=""
-      />
-    `;
-  const titleEl = `
-      <h4 class="unfurl__heading">
-        <a class="unfurl__link" href="${url}">${title}</a>
-      </h4>
-    `;
-  const descriptionEl = `<p class="unfurl__description">${description}</p>`;
-  const logoEl = `
-      <img
-        class="unfurl__logo"
-        src="${logo.url}"
-        width="${logo.width}"
-        height="${logo.height}"
-        alt=""
-      />
-    `;
-  // const dateEl = `
-  //     <time class="unfurl__date" datetime="${date}">
-  //       Posted ${formatDate(date)}
-  //     </time>
-  //   `;
-  const publisherEl = `<span class="unfurl__publisher">${publisher}</span>`;
-
-  return `
-    <article class="unfurl">
-      ${titleEl}
-      ${image ? imageEl : ""}
-      ${description ? descriptionEl : ""}
-      <small class="unfurl__meta">
-        ${logo ? logoEl : ""}
-        ${publisher ? publisherEl : ""}
-      </small>
-    </article>`;
+const templateReturn = (template, boolean) => {
+  if (boolean) {
+    return template;
+  } else {
+    return "";
+  }
 };
+
+const imageTemplate = ({ url, width, height }) => `
+  <img
+    class="unfurl__image"
+    src="${url}"
+    width="${width}"
+    height="${height}"
+    alt="Page preview image"
+  />
+`;
+
+const titleTemplate = ({ url, title }) => `
+  <h4 class="unfurl__heading">
+    <a class="unfurl__link" href="${url}">${title}</a>
+  </h4>
+`;
+
+const descriptionTemplate = (description) => `
+  <p class="unfurl__description">${description}</p>
+`;
+
+const logoTemplate = ({ url, width, height }) => `
+  <img
+    class="unfurl__logo"
+    src="${url}"
+    width="${width}"
+    height="${height}"
+    alt="Logo"
+  />
+`;
+
+const publisherTemplate = (publisher) => `
+  <span class="unfurl__publisher">${publisher}</span>
+`;
+
+const template = ({ title, url, image, description, logo, publisher }) => `
+  <article class="unfurl">
+    ${templateReturn(titleTemplate({ title, url }), title)}
+    ${templateReturn(imageTemplate(image), image)}
+    ${templateReturn(descriptionTemplate(description), description)}
+    <small class="unfurl__meta">
+      ${templateReturn(logoTemplate(logo), logo)}
+      ${templateReturn(publisherTemplate(publisher), publisher)}
+    </small>
+  </article>
+`;
 
 module.exports = (eleventyConfig, options = {}) => {
   eleventyConfig.addAsyncShortcode("unfurl", async (link) => {
-    const metadata = await Cache(`https://api.microlink.io/?url=${link}`, {
-      duration: "1m",
-      type: "json",
-    });
+    try {
+      const metadata = await EleventyFetch(
+        `https://api.microlink.io/?url=${link}`,
+        {
+          duration: options.duration || "1m",
+          type: "json",
+        }
+      );
 
-    if (options.template) {
-      return options.template(metadata.data);
+      if (options.template) {
+        return options.template(metadata.data);
+      }
+      return template(metadata.data);
+    } catch (error) {
+      console.error(error);
+      return link;
     }
-    return template(metadata.data);
   });
 };

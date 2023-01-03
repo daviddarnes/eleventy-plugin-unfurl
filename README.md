@@ -37,39 +37,19 @@ Turn URLs into rich cards. Show a preview image, page title, description and oth
 
 ## Options
 
-The HTML of the unfurled links can be amended using the `template` option like so:
+- `duration`: The duration of time before the cache is busted and new data is captured from the URL. Default is `1m`, check out the [Eleventy Fetch documentation for more info](https://www.11ty.dev/docs/plugins/fetch/#change-the-cache-duration).
 
-```js
-eleventyConfig.addPlugin(pluginUnfurl, {
-  template: ({ title, url }) => `<a href="${url}">${title}</a>`,
-});
-```
+- `template`: A custom template to present unfurled links. Can be a totally custom HTML template string.
 
-The following data points are available:
+  Example:
 
-- `title`
-- `description`
-- `lang`
-- `author`
-- `publisher`
-- `image`
-  - `url`
-  - `type`
-  - `size`
-  - `height`
-  - `width`
-  - `size_pretty`
-- `date` (Note: Currently not returning the published date, removed from plugin HTML template)
-- `url`
-- `logo`
-  - `url`
-  - `type`
-  - `size`
-  - `height`
-  - `width`
-  - `size_pretty`
+  ```js
+  eleventyConfig.addPlugin(pluginUnfurl, {
+    template: ({ title, url }) => `<a href="${url}">${title}</a>`,
+  });
+  ```
 
-> 🎨 Looking for some CSS like in [the demo](https://eleventy-plugin-unfurl.netlify.app)? Check out the [demo file in the repo](https://github.com/daviddarnes/eleventy-plugin-unfurl/blob/main/demo/index.njk).
+  Check out the [Microlink API documentation](https://microlink.io/docs/api/getting-started/data-fields) for a full list of possible data fields.
 
 ## Development
 
@@ -97,3 +77,4 @@ The following data points are available:
 - [Microlink](https://microlink.io) for the underlying API
 - [Sara Soueidan](https://www.sarasoueidan.com) for the idea and initial execution
 - [Kiko Beats](https://kikobeats.com) for help with using Microlink
+- [Elly Loel](https://www.ellyloel.com) for providing feedback
