@@ -39,6 +39,8 @@ Turn URLs into rich cards. Show a preview image, page title, description and oth
 
 - `duration`: The duration of time before the cache is busted and new data is captured from the URL. Default is `1m`, check out the [Eleventy Fetch documentation for more info](https://www.11ty.dev/docs/plugins/fetch/#change-the-cache-duration).
 
+- `directory`: Set a cache directory. Default is `.cache`, check out the [Eleventy Fetch documentation for more info](https://www.11ty.dev/docs/plugins/fetch/#cache-directory).
+
 - `template`: A custom template to present unfurled links. Can be a totally custom HTML template string.
 
   Example:
@@ -60,15 +62,21 @@ Turn URLs into rich cards. Show a preview image, page title, description and oth
    const pluginUnfurl = require("eleventy-plugin-unfurl");
    ```
 
-2. Install the demo dependencies:
+2. Install the module dependencies:
 
-   ```text
+   ```bash
+   npm install
+   ```
+
+3. Install the demo dependencies:
+
+   ```bash
    cd demo
    npm install
    ```
 
-3. Run the demo locally:
-   ```text
+4. Run the demo locally:
+   ```bash
    npm run dev
    ```
 
