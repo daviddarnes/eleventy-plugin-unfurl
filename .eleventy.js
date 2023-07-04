@@ -62,6 +62,7 @@ module.exports = (eleventyConfig, options = {}) => {
         {
           duration: options.duration || "1m",
           type: "json",
+          directory: options.directory || ".cache",
         }
       );
 

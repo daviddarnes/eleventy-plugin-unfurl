@@ -39,6 +39,8 @@ Turn URLs into rich cards. Show a preview image, page title, description and oth
 
 - `duration`: The duration of time before the cache is busted and new data is captured from the URL. Default is `1m`, check out the [Eleventy Fetch documentation for more info](https://www.11ty.dev/docs/plugins/fetch/#change-the-cache-duration).
 
+- `directory`: Set a cache directory. Default is `.cache`, check out the [Eleventy Fetch documentation for more info](https://www.11ty.dev/docs/plugins/fetch/#cache-directory).
+
 - `template`: A custom template to present unfurled links. Can be a totally custom HTML template string.
 
   Example:
