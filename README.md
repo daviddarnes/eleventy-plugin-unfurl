@@ -6,10 +6,13 @@ Turn URLs into rich cards. Show a preview image, page title, description and oth
 
 [See the live demo](https://eleventy-plugin-unfurl.netlify.app) and the [demo directory in the repo](https://github.com/daviddarnes/eleventy-plugin-unfurl/tree/main/demo) to see it all in action.
 
-- [Installation](#installation)
-- [Options](#options)
-- [Development](#development)
-- [Credits](#credits)
+- [eleventy-plugin-unfurl](#eleventy-plugin-unfurl)
+   - [Installation](#installation)
+   - [Options](#options)
+   - [Development](#development)
+   - [Credits](#credits)
+
+Version `1.0.0` used [Microlink](https://microlink.io) to fetch data which is slower than the current implementation. Install version `1.0.0` if you want to use microlink as the source.
 
 ## Installation
 
@@ -39,9 +42,11 @@ Turn URLs into rich cards. Show a preview image, page title, description and oth
 
 - `duration`: The duration of time before the cache is busted and new data is captured from the URL. Default is `1m`, check out the [Eleventy Fetch documentation for more info](https://www.11ty.dev/docs/plugins/fetch/#change-the-cache-duration).
 
+- `directory`: Set a cache directory. Default is `.cache`, check out the [Eleventy Fetch documentation for more info](https://www.11ty.dev/docs/plugins/fetch/#cache-directory).
+
 - `template`: A custom template to present unfurled links. Can be a totally custom HTML template string.
 
-  Example:
+Example:
 
   ```js
   eleventyConfig.addPlugin(pluginUnfurl, {
@@ -49,7 +54,29 @@ Turn URLs into rich cards. Show a preview image, page title, description and oth
   });
   ```
 
-  Check out the [Microlink API documentation](https://microlink.io/docs/api/getting-started/data-fields) for a full list of possible data fields.
+Possible values:
+
+   ```js
+   {
+      title: string,
+      description: string,
+      lang: string,
+      publisher: string,
+      url: link,
+      image: {
+         url: string,
+         width: number,
+         height: number,
+         type: string,
+      },
+      logo: {
+         url: string,
+         width: number,
+         height: number,
+         type: string,
+      },
+   }
+   ```
 
 ## Development
 
@@ -59,16 +86,21 @@ Turn URLs into rich cards. Show a preview image, page title, description and oth
    // const pluginUnfurl = require("../");
    const pluginUnfurl = require("eleventy-plugin-unfurl");
    ```
+2. Install the module dependencies:
 
-2. Install the demo dependencies:
+    ```bash
+    npm install
+    ```
 
-   ```text
+3. Install the demo dependencies:
+
+   ```bash
    cd demo
    npm install
    ```
 
-3. Run the demo locally:
-   ```text
+4. Run the demo locally:
+   ```bash
    npm run dev
    ```
 
